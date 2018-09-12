@@ -1,3 +1,5 @@
+package MyDataStructures;
+
 import java.util.Date;
 
 public class Node {
@@ -13,7 +15,7 @@ public class Node {
 
     public String toString()
     {
-        return this.task;
+        return this.date+"\t"+this.task ;
     }
 
     public Date getDate()

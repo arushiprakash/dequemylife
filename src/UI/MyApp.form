@@ -54,7 +54,8 @@
             </constraints>
             <properties>
               <lineWrap value="true"/>
-              <text value="When you press Deque you'll see text here :) "/>
+              <text value="Press Dequeue"/>
+              <toolTipText value="When you press Deque you'll see text here :) "/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>
@@ -65,7 +66,8 @@
               </grid>
             </constraints>
             <properties>
-              <text value="When you press Enque the text from here will disappeat and get added to the queue"/>
+              <text value="Enter Text here"/>
+              <toolTipText value="When you press Enque the text from here will disappeat and get added to the queue"/>
             </properties>
           </component>
         </children>

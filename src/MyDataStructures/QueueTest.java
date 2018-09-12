@@ -1,6 +1,8 @@
+package MyDataStructures;
+
 class QueueTest {
 
-    static int counter = 0;
+    private static int counter = 0;
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         System.out.println(++counter + " - setUp()");

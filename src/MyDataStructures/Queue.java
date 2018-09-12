@@ -1,3 +1,5 @@
+package MyDataStructures;
+
 import java.util.Date;
 
 public class Queue {
@@ -12,17 +14,17 @@ public class Queue {
 
     public void enqueue(String t, Date d)
     {
-        // Adds new nodes to the Queue
+        // Adds new nodes to the MyDataStructures.Queue
 
         if (first != null)
-        // Queue has objects already
+        // MyDataStructures.Queue has objects already
         {
             last.next = new Node(t,d);
             last = last.next;
         }
 
         else
-            // Queue is empty
+            // MyDataStructures.Queue is empty
         {
             last = new Node(t,d);
             first = last;
@@ -33,7 +35,7 @@ public class Queue {
 
     public Node dequeue()
     {
-        // Deletes the first node from the Queue
+        // Deletes the first node from the MyDataStructures.Queue
 
         if (first != null)
         {
@@ -49,24 +51,24 @@ public class Queue {
 
     public String printQueue()
     {
-        // Prints the entire Queue
+        // Prints the entire MyDataStructures.Queue
         // Strings separated by new line
-        String q = "";
+        StringBuilder q = new StringBuilder();
         Node temp = first;
 
         while (temp != null)
             // If there are objects in the queue
         {
-            q = q + temp.toString() + "\n";
+            q = q.append(temp.toString() + "\n");
             temp = temp.next;
         }
 
-        return q;
+        return q.toString();
     }
 
     public boolean isEmpty()
     {
-        // Checks if Queue is empty
+        // Checks if MyDataStructures.Queue is empty
 
         boolean empty = false;
         if (first == null)
@@ -77,7 +79,7 @@ public class Queue {
 
     public void clear()
     {
-        // Delete all objects in the Queue
+        // Delete all objects in the MyDataStructures.Queue
         // How does this affect memory?
         first = null;
         last = null;
@@ -86,8 +88,8 @@ public class Queue {
 
     public String peek()
     {
-        // Shows first element of the Queue
-        String top = "Queue is empty";
+        // Shows first element of the MyDataStructures.Queue
+        String top = "MyDataStructures.Queue is empty";
         if (first != null)
             top = first.task;
 

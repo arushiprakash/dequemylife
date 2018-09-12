@@ -3,6 +3,9 @@ package UI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
+
+import MyDataStructures.*;
 
 public class MyApp {
     private JButton printQueueButton;
@@ -12,46 +15,62 @@ public class MyApp {
     private JButton EnqueButton;
     private JTextArea DequeTextArea;
     private JTextField EnqueTextField;
+    private String EnqueDefaultString;
+    private Queue Q; // this Queue is of type String
+
 
     public MyApp() {
+        // set up MyDataStructures.Queue
+        Q = new Queue();
+
         //hello
         panelMain.setPreferredSize(new Dimension(800,500));
 
 
         printQueueButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Prints Queue. Robust enough to handle empty Queues
              *
-             * @param e
+             * @param e mouse click
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                    System.out.println("Print Queue button was clicked -> printing the full queue");
-                    for (int i = 0; i < 10; i++) {
-                        System.out.println("item " +i+ "= blah blah blah" );
-                    }
+                //Add stuff here
+                System.out.println(Q.printQueue());
             }
         });
         DequeButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Dequeue's the first element added to the queue.
              *
-             * @param e
+             * @param e mouse click
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("DequeButton clicked!");
+                String ans;
+                if(Q.isEmpty())
+                    ans = "sorry, the Queue is Empty. Please add to it first :)";
+                else
+                    ans = Q.dequeue().toString();
+
+
+                //System.out.println(ans);
+                DequeTextArea.setText(ans);
             }
         });
+
+
         EnqueButton.addActionListener(new ActionListener() {
             /**
-             * Invoked when an action occurs.
+             * Enqueues what was present in the text box to the left the of the button (EnqueueTextField)
              *
-             * @param e
+             * @param e mouse click on the button
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Enque button clicked");
+                String input = EnqueTextField.getText();
+                Q.enqueue(input, new Date());
+                EnqueTextField.setText(EnqueDefaultString);
             }
         });
 
@@ -59,7 +78,7 @@ public class MyApp {
             /**
              * Invoked when the component's size changes.
              *
-             * @param e
+             * @param e Outer frame is resized.
              */
             @Override
             public void componentResized(ComponentEvent e) {
@@ -67,14 +86,26 @@ public class MyApp {
                 SwingUtilities.updateComponentTreeUI(e.getComponent());
             }
         });
+        EnqueTextField.addFocusListener(new FocusAdapter() {
+            /**
+             * Invoked when a component gains the keyboard focus.
+             *  Store the default string that was present before user starts overwriting it with their words.
+             * @param e key stroke
+             */
+            @Override
+            public void focusGained(FocusEvent e) {
+                //super.focusGained(e);
+                EnqueDefaultString = EnqueTextField.getText();
+            }
+        });
     }
 
     public static void main(String[] args) {
-        System.out.println("My App started");
+//        System.out.println("My App started");
         JFrame frame = new JFrame("dequemylife");
         frame.setContentPane(new MyApp().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        SwingUtilities.updateComponentTreeUI(frame);
+       // SwingUtilities.updateComponentTreeUI(frame);
         frame.pack();
         frame.setVisible(true);
     }
