@@ -35,7 +35,8 @@ public class MyApp {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Add stuff here
+                //TODO Add File I/O so that printQueue() creates a new file
+                //TODO Add penalty period following Exponential backoff algorithm
                 System.out.println(Q.printQueue());
             }
         });
