@@ -3,9 +3,11 @@ package UI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Date;
 
 import MyDataStructures.*;
+import jdk.nashorn.internal.scripts.JO;
 
 public class MyApp {
     private JButton printQueueButton;
@@ -24,7 +26,7 @@ public class MyApp {
         Q = new Queue();
 
         //hello
-        panelMain.setPreferredSize(new Dimension(800,500));
+        panelMain.setPreferredSize(new Dimension(800, 500));
 
 
         printQueueButton.addActionListener(new ActionListener() {
@@ -35,9 +37,14 @@ public class MyApp {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO Add File I/O so that printQueue() creates a new file
-                //TODO Add penalty period following Exponential backoff algorithm
+                try {
+                    MyIO mIO = new MyIO(Q);
+                } catch (IOException e1) {
+                    System.out.println("Ooops - we tried to print the queue to a file, but failed miserably - you suck!");
+                }
                 System.out.println(Q.printQueue());
+                //TODO Add penalty period following Exponential backoff algorithm
+
             }
         });
         DequeButton.addActionListener(new ActionListener() {
@@ -49,7 +56,7 @@ public class MyApp {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String ans;
-                if(Q.isEmpty())
+                if (Q.isEmpty())
                     ans = "sorry, the Queue is Empty. Please add to it first :)";
                 else
                     ans = Q.dequeue().toString();
@@ -105,11 +112,26 @@ public class MyApp {
 //        System.out.println("My App started");
         JFrame frame = new JFrame("dequemylife");
         frame.setContentPane(new MyApp().panelMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       // SwingUtilities.updateComponentTreeUI(frame);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // for FULL SCREEN
         frame.pack();
         frame.setVisible(true);
+        frame.addWindowListener(new AreYouSure());
     }
 
+    private static class AreYouSure extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            int option = JOptionPane.showOptionDialog(
+                    JOptionPane.getRootFrame(),
+                    "Would you like to save your Queue?",
+                    "Save before Exit", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.YES_OPTION) {
+                //TODO save queue
+                System.exit(0);
+            }
+        }
+    }
 
 }

@@ -2,7 +2,7 @@ package MyDataStructures;
 
 import java.util.Date;
 
-public class Queue {
+public class Queue{
 
     Node first, last;
     int size;
@@ -100,5 +100,6 @@ public class Queue {
     {
         return size;
     }
+
 
 }
